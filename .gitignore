@@ -1,0 +1,5 @@
+.idea
+.env
+target
+vsub-console/target
+vsub-api/target

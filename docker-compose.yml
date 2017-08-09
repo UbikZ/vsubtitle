@@ -1,0 +1,22 @@
+vsub:
+  build: .
+  container_name: vsub
+  links:
+    - vsub-pgsql
+  ports:
+    - "3000:3000"
+  volumes:
+    - ./vsub-docker/nginx/sites-enabled/vsub:/nginx/sites-enabled
+    - ./vsub-docker/vsub/mvn:/root/.m2
+    - ./vsub-docker/vsub/log:/var/log
+  env_file: .env
+
+vsub-pgsql:
+  image: postgres:9-alpine
+  container_name: vsub-pgsql
+  ports:
+    - "5432:5432"
+  volumes:
+    - ./vsub-docker/pgsql/data:/var/lib/postgresql/data
+    - ./vsub-pgsql/initdb.d:/docker-entrypoint-initdb.d:ro
+  env_file: .env
